@@ -1,0 +1,17 @@
+:root {
+    font-size: 62.5%;
+}
+
+.bookshelf {
+    padding: 6.4rem;
+    font-size: 1.7rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1.6rem;
+}
+
+.card {
+    background: lightgray;
+    padding: 1.6rem;
+    border-radius: 8px;
+}
