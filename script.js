@@ -1,5 +1,7 @@
 const library = [];
 let bookShelf = document.querySelector('.bookshelf')
+let newBookButton = document.querySelector('.new-book-button')
+let dialog = document.querySelector('dialog');
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -46,6 +48,12 @@ function displayBooks() {
     bookShelf.appendChild(card);
   }
 }
+
+function addBook() {
+  dialog.setAttribute('open', '')
+}
+
+newBookButton.addEventListener('click', addBook);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, false);
 addBookToLibrary('The Hobbit 1', 'J.R.R. Tolkien', 234, true);

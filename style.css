@@ -6,7 +6,7 @@
     padding: 6.4rem;
     font-size: 1.7rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, 22rem);
     gap: 1.6rem;
 }
 
@@ -14,4 +14,11 @@
     background: lightgray;
     padding: 1.6rem;
     border-radius: 8px;
+}
+
+dialog {
+    font-size: 1.7rem;
+    position: absolute;
+    top: 10%;
+    border-radius: 16px;
 }
