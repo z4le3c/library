@@ -51,6 +51,14 @@ Book.prototype.display = function() {
   });
   card.appendChild(deleteButton);
 
+  let readButton = document.createElement('button');
+  readButton.textContent = this.read ? 'Unread': 'Read';
+  readButton.addEventListener('click', () => {
+    this.read = !this.read;
+    displayBooks();
+  });
+  card.appendChild(readButton);
+
   bookShelf.appendChild(card);
 }
 
