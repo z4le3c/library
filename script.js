@@ -1,5 +1,5 @@
 const library = new Map();
-let bookShelf = document.querySelector('#bookshelf')
+let bookShelf = document.querySelector('.bookshelf')
 let newBookButton = document.querySelector('.new-book-button')
 let dialog = document.querySelector('dialog');
 let titleInput = document.querySelector('#title');
@@ -43,13 +43,16 @@ Book.prototype.display = function() {
   read.textContent = this.read ? 'already read' : 'not read yet';
   card.appendChild(read);
 
+  let buttons = document.createElement('div')
+  buttons.setAttribute('class', 'buttons')
+
   let deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
   deleteButton.addEventListener('click', () => {
     library.delete(this.id);
     displayBooks();
   });
-  card.appendChild(deleteButton);
+  buttons.appendChild(deleteButton);
 
   let readButton = document.createElement('button');
   readButton.textContent = this.read ? 'Unread': 'Read';
@@ -57,7 +60,8 @@ Book.prototype.display = function() {
     this.read = !this.read;
     displayBooks();
   });
-  card.appendChild(readButton);
+  buttons.appendChild(readButton);
+  card.appendChild(buttons)
 
   bookShelf.appendChild(card);
 }
@@ -70,9 +74,9 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayBooks() {
   const newbookShelf = document.createElement('div');
-  newbookShelf.setAttribute('id', 'bookshelf');
+  newbookShelf.setAttribute('class', 'bookshelf');
   bookShelf.replaceWith(newbookShelf);
-  bookShelf = document.querySelector('#bookshelf');
+  bookShelf = document.querySelector('.bookshelf');
   for (const [id, book] of library) {
     book.display()
   }
