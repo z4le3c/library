@@ -17,8 +17,22 @@
 }
 
 dialog {
+    height: 32rem;
+    width: 28rem;
     font-size: 1.7rem;
     position: absolute;
     top: 10%;
     border-radius: 16px;
+}
+
+dialog form{
+    display: grid;
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+}
+
+.input-field {
+    display: grid;
+    grid-template-columns: 7ch 1fr;
+    align-items: center;
 }

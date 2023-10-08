@@ -10,21 +10,30 @@
 <body>
     <dialog>
         <p>Add book</p>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-
-        <label for="author">Author</label>
-        <input type="text" name="author" id="author">
-
-        <label for="pages">Pages</label>
-        <input type="number" name="pages" id="pages">
-
-        <label for="read">Read</label>
-        <input type="checkbox" name="read" id="read">
-
         <form method="dialog">
-          <button>OK</button>
-          <button>Cancel</button>
+            <div class="input-field">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+
+            <div class="input-field">
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" required>
+            </div>
+
+            <div class="input-field">
+                <label for="pages">Pages</label>
+                <input type="number" name="pages" id="pages" required>
+            </div>
+
+            <div class="input-field">
+                <label for="read">Read</label>
+                <input type="checkbox" name="read" id="read">
+            </div>
+            <div class="buttons">
+                <button name="add" id="add" type="submit">Add</button>
+                <button name="cancel" id="cancel">Cancel</button>
+            </div>
         </form>
     </dialog>
 
