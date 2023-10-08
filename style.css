@@ -2,7 +2,7 @@
     font-size: 62.5%;
 }
 
-.bookshelf {
+#bookshelf {
     padding: 6.4rem;
     font-size: 1.7rem;
     display: grid;

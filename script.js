@@ -1,5 +1,5 @@
-const library = [];
-let bookShelf = document.querySelector('.bookshelf')
+const library = new Map();
+let bookShelf = document.querySelector('#bookshelf')
 let newBookButton = document.querySelector('.new-book-button')
 let dialog = document.querySelector('dialog');
 let titleInput = document.querySelector('#title');
@@ -9,12 +9,14 @@ let readInput = document.querySelector('#read');
 let addButton = document.querySelector('#add');
 let cancelButton = document.querySelector('#cancel');
 let form = document.querySelector('form')
+let counter = 0;
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.id = counter++;
 }
 
 Book.prototype.display = function() {
@@ -41,23 +43,46 @@ Book.prototype.display = function() {
   read.textContent = this.read ? 'already read' : 'not read yet';
   card.appendChild(read);
 
+  let deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete';
+  deleteButton.addEventListener('click', () => {
+    library.delete(this.id);
+    displayBooks();
+  });
+  card.appendChild(deleteButton);
+
   bookShelf.appendChild(card);
 }
 
 function addBookToLibrary(title, author, pages, read) {
   let b = new Book(title, author, pages, read)
-  library.push(b);
+  library.set(b.id, b);
   b.display()
 }
 
 function displayBooks() {
-  for (const book of library) {
+  const newbookShelf = document.createElement('div');
+  newbookShelf.setAttribute('id', 'bookshelf');
+  bookShelf.replaceWith(newbookShelf);
+  bookShelf = document.querySelector('#bookshelf');
+  for (const [id, book] of library) {
     book.display()
   }
 }
 
 function openDialog() {
   dialog.show()
+}
+
+function cancelDialog(event) {
+  event.preventDefault()
+  cleanDialog()
+  dialog.close();
+}
+
+function addBook() {
+  addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, readInput.checked);
+  cleanDialog();
 }
 
 function cleanDialog() {
@@ -67,16 +92,8 @@ function cleanDialog() {
   readInput.checked = false;
 }
 
-form.addEventListener("submit", () => {
-  addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, readInput.checked);
-  cleanDialog();
-});
-
-cancelButton.addEventListener('click', (event) => {
-  event.preventDefault()
-  cleanDialog()
-  dialog.close();
-});
+form.addEventListener("submit", addBook);
+cancelButton.addEventListener('click', cancelDialog);
 newBookButton.addEventListener('click', openDialog);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, false);
