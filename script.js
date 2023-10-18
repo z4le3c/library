@@ -11,59 +11,60 @@ let cancelButton = document.querySelector('#cancel');
 let form = document.querySelector('form')
 let counter = 0;
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = counter++;
-}
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = counter++;
+  }
+  display() {
+    let card = document.createElement('div');
+    card.setAttribute('class', 'card')
 
-Book.prototype.display = function() {
-  let card = document.createElement('div');
-  card.setAttribute('class', 'card')
+    let title = document.createElement('div');
+    title.setAttribute('class', 'title');
+    title.textContent = `Tittle: ${this.title}`;
+    card.appendChild(title);
 
-  let title = document.createElement('div');
-  title.setAttribute('class', 'title');
-  title.textContent = `Tittle: ${this.title}`;
-  card.appendChild(title);
+    let author = document.createElement('div');
+    author.setAttribute('class', 'author');
+    author.textContent = `Author: ${this.author}`;
+    card.appendChild(author);
 
-  let author = document.createElement('div');
-  author.setAttribute('class', 'author');
-  author.textContent = `Author: ${this.author}`;
-  card.appendChild(author);
+    let pages = document.createElement('div');
+    pages.setAttribute('class', 'pages');
+    pages.textContent = `Pages: ${this.pages}`;
+    card.appendChild(pages);
 
-  let pages = document.createElement('div');
-  pages.setAttribute('class', 'pages');
-  pages.textContent = `Pages: ${this.pages}`;
-  card.appendChild(pages);
+    let read = document.createElement('div');
+    read.setAttribute('class', 'read');
+    read.textContent = this.read ? 'already read' : 'not read yet';
+    card.appendChild(read);
 
-  let read = document.createElement('div');
-  read.setAttribute('class', 'read');
-  read.textContent = this.read ? 'already read' : 'not read yet';
-  card.appendChild(read);
+    let buttons = document.createElement('div')
+    buttons.setAttribute('class', 'buttons')
 
-  let buttons = document.createElement('div')
-  buttons.setAttribute('class', 'buttons')
+    let deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', () => {
+      library.delete(this.id);
+      displayBooks();
+    });
+    buttons.appendChild(deleteButton);
 
-  let deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Delete';
-  deleteButton.addEventListener('click', () => {
-    library.delete(this.id);
-    displayBooks();
-  });
-  buttons.appendChild(deleteButton);
+    let readButton = document.createElement('button');
+    readButton.textContent = this.read ? 'Unread': 'Read';
+    readButton.addEventListener('click', () => {
+      this.read = !this.read;
+      displayBooks();
+    });
+    buttons.appendChild(readButton);
+    card.appendChild(buttons)
 
-  let readButton = document.createElement('button');
-  readButton.textContent = this.read ? 'Unread': 'Read';
-  readButton.addEventListener('click', () => {
-    this.read = !this.read;
-    displayBooks();
-  });
-  buttons.appendChild(readButton);
-  card.appendChild(buttons)
-
-  bookShelf.appendChild(card);
+    bookShelf.appendChild(card);
+  }
 }
 
 function addBookToLibrary(title, author, pages, read) {
