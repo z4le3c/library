@@ -74,11 +74,10 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function displayBooks() {
-  const newbookShelf = document.createElement('div');
-  newbookShelf.setAttribute('class', 'bookshelf');
-  bookShelf.replaceWith(newbookShelf);
-  bookShelf = document.querySelector('.bookshelf');
-  for (const [id, book] of library) {
+  for (const bookElement of Array.from(bookShelf.children)) {
+    bookElement.remove()
+  }
+  for (const [_, book] of library) {
     book.display()
   }
 }
